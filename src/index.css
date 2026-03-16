@@ -1,0 +1,98 @@
+@import "tailwindcss";
+@import "@fontsource/anton";
+@import "@fontsource/inter-tight/400.css";
+@import "@fontsource/inter-tight/500.css";
+@import "@fontsource/inter-tight/600.css";
+@import "@fontsource/inter-tight/700.css";
+
+@theme {
+  --font-anton: "Anton", sans-serif;
+  --font-sans: "Inter Tight", sans-serif;
+  
+  --color-accent: var(--accent);
+  --color-bg: var(--bg);
+  --color-card: var(--card);
+  --color-foreground: var(--text);
+}
+
+:root {
+  --accent: #D4F06D;
+  --bg: #121212;
+  --card: #1C1C1C;
+  --text: #ffffff;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --muted: rgba(255, 255, 255, 0.4);
+  --semi: rgba(255, 255, 255, 0.6);
+  --nav-bg: rgba(10, 10, 10, 0.95);
+}
+
+.light {
+  --accent: #7ca600;
+  --bg: #f8f9fa;
+  --card: #ffffff;
+  --text: #121212;
+  --border-color: rgba(0, 0, 0, 0.15);
+  --muted: rgba(0, 0, 0, 0.6);
+  --semi: rgba(0, 0, 0, 0.8);
+  --nav-bg: rgba(255, 255, 255, 0.9);
+}
+
+@layer base {
+  ::placeholder {
+    @apply text-[var(--muted)];
+  }
+  
+  body {
+    @apply bg-bg text-foreground font-sans antialiased transition-colors duration-300;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-anton uppercase tracking-tight;
+  }
+}
+
+.btn-outline {
+  @apply px-6 py-2 rounded-full border border-[var(--border-color)] hover:border-accent hover:text-accent transition-all duration-300 uppercase text-xs font-bold tracking-widest text-foreground;
+}
+
+.btn-primary {
+  @apply px-8 py-3 rounded-full bg-accent text-black font-bold hover:bg-foreground hover:text-bg transition-all duration-300 uppercase text-sm tracking-widest;
+}
+
+.accordion-item {
+  @apply border-b border-[var(--border-color)] py-6 cursor-pointer;
+}
+
+.glass-card {
+  @apply bg-card/80 border border-[var(--border-color)] rounded-3xl p-8 hover:border-accent/40 transition-all duration-300;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+.stat-card {
+  @apply bg-accent text-black p-8 rounded-3xl shadow-2xl;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--text) 0%, var(--semi) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-link {
+  @apply relative text-xs font-bold uppercase tracking-widest text-[var(--muted)] hover:text-accent transition-colors duration-300;
+}
+
+.nav-link::after {
+  content: '';
+  @apply absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full;
+}
+
+.selection\:bg-accent::selection {
+  background-color: var(--accent);
+  color: #000;
+}
