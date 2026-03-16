@@ -96,7 +96,7 @@ export default function App() {
               className="w-64 md:w-80 aspect-[3/4] bg-zinc-800 rounded-3xl overflow-hidden border border-[var(--border-color)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <img
-                src="/images/jack1.jpeg"
+                src="images/jack1.jpeg"
                 alt="Jackson Kimotho"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
@@ -217,10 +217,10 @@ export default function App() {
               </a>
             </div>
             <div className="flex gap-4">
-              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('/Jackson_Kimotho_CV.pdf', '_blank')}>
+              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('Jackson_Kimotho_CV.pdf', '_blank')}>
                 <span className="relative z-10">MY CV</span>
               </button>
-              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('/Jackson_Kimotho_Resume.pdf', '_blank')}>
+              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('Jackson_Kimotho_Resume.pdf', '_blank')}>
                 <span className="relative z-10">RESUME</span>
               </button>
             </div>
@@ -420,7 +420,7 @@ export default function App() {
               whileHover={{ scale: 1.02 }}
               className="aspect-[3/4] rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-xl"
             >
-              <img src="/images/jack2.jpeg" className="w-full h-full object-cover transition-all duration-700" />
+              <img src="images/jack2.jpeg" className="w-full h-full object-cover transition-all duration-700" />
             </motion.div>
             <motion.div
               animate={{ rotate: [-15, -10, -15] }}
