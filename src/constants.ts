@@ -10,35 +10,35 @@ export const PROJECTS = [
     title: 'PYTHON DATA ANALYSIS: BEGINNER TO PRO',
     category: 'Python / Pandas',
     description: 'A comprehensive repository covering the end-to-end data analysis workflow using Python, from data cleaning to advanced statistical analysis.',
-    image: 'images/data_analysis1.jpg',
+    image: 'images/data_analysis1.webp',
     link: 'https://github.com/Jack-ki1/PYTHON-DATA-ANALYSIS-BEGINEER-TO-PRO'
   },
   {
     title: 'PYTHON STREAMLIT CONVERTOR',
     category: 'Python / Streamlit',
     description: 'A powerful, production-ready tool that converts Python scripts and Jupyter Notebooks into fully functional Streamlit applications. Handles large files, preserves comments and markdown, and provides multiple conversion strategies.',
-    image: 'images/sentiment1.jpg',
+    image: 'images/sentiment1.webp',
     link: 'https://huggingface.co/spaces/Jack-ki1/python_to_streamlit_convertor'
   },
   {
     title: 'PYTHON MACHINE LEARNING',
     category: 'Machine Learning',
     description: 'Implementation of various machine learning algorithms including regression, classification, and clustering using Scikit-Learn and TensorFlow.',
-    image: 'images/ml_1.jpg',
+    image: 'images/ml_1.webp',
     link: 'https://github.com/Jack-ki1/PYTHON_MACHINE_LEARNING'
   },
   {
     title: 'FINESE DATA',
     category: 'Data Analysis / Visualization / Modelling',
     description: 'A comprehensive, modular data analysis platform with AI-powered insights, automated cleaning, modeling, and export capabilities.',
-    image: 'images/desktop1.jpg',
+    image: 'images/desktop1.webp',
     link: 'https://huggingface.co/spaces/Jack-ki1/finese_data_1'
   },
   {
     title: 'GLOBAL SUPERSTORE ANALYSIS',
     category: 'Data Analysis / Visualization',
     description: 'An in-depth analysis of the Global Superstore dataset, identifying key sales drivers and optimizing supply chain efficiency through data insights.',
-    image: 'images/global_superstore.jpeg',
+    image: 'images/global_superstore.webp',
     link: 'https://github.com/Jack-ki1/GLOBALSUPERSTORE_PROJECT'
   }
 ];
@@ -60,7 +60,7 @@ export const BLOGS = [
     category: 'TECH/GROWTH',
     date: 'JAN 2026',
     description: 'I participated in the inaugural MSMEs–Innovator Connect Forum,  hosted by Konza Technopolis in partnership with key stakeholders.',
-    image: 'images/event1.jpeg',
+    image: 'images/event1.webp',
     link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-konzatechnopolis-kenyaprivatesectoralliance-ugcPost-7424230067938996224-Etdt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqmkB8qDwkjn_3QZo7I-1HQ6djT_HS8o'
   },
   {
@@ -68,7 +68,7 @@ export const BLOGS = [
     category: 'ML/GROWTH',
     date: 'FEB 2026',
     description: 'A detailed review on how one can leverage Notebooklm in their machine  learning.',
-    image: 'images/ml2.png',
+    image: 'images/ml2.webp',
     link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-machinelearning-deeplearning-ugcPost-7429802358643138560-PEMs?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqmkB8qDwkjn_3QZo7I-1HQ6djT_HS8o'
   }
 ];

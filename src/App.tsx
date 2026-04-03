@@ -22,6 +22,30 @@ import {
 
 export default function App() {
   const [isLight, setIsLight] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [formData, setFormData] = useState({ name: '', email: '', service: '', message: '' });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 400);
+      const sections = ['home', 'about', 'projects', 'blogs'];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 300 && rect.bottom >= 300;
+        }
+        return false;
+      });
+      if (current && current !== activeSection) {
+        setActiveSection(current);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [activeSection]);
 
   useEffect(() => {
     if (isLight) {
@@ -33,6 +57,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg text-foreground selection:bg-accent selection:text-black">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-accent focus:text-black focus:font-bold">Skip to content</a>
       {/* Navbar */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-8 flex justify-center">
         <motion.div
@@ -50,10 +75,10 @@ export default function App() {
             <span className="font-bold tracking-tighter text-lg">JACK</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#" className="nav-link">Home</a>
-            <a href="#about" className="nav-link">About</a>
-            <a href="#projects" className="nav-link">Projects</a>
-            <a href="#blogs" className="nav-link">Blogs</a>
+            <a href="#home" className={`nav-link ${activeSection === 'home' ? 'text-accent after:w-full' : ''}`}>Home</a>
+            <a href="#about" className={`nav-link ${activeSection === 'about' ? 'text-accent after:w-full' : ''}`}>About</a>
+            <a href="#projects" className={`nav-link ${activeSection === 'projects' ? 'text-accent after:w-full' : ''}`}>Projects</a>
+            <a href="#blogs" className={`nav-link ${activeSection === 'blogs' ? 'text-accent after:w-full' : ''}`}>Blogs</a>
           </div>
           <div className="flex items-center gap-4">
             <button
@@ -71,7 +96,8 @@ export default function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative pt-48 pb-24 px-6 flex flex-col items-center">
+      <main id="main">
+      <section id="home" className="relative pt-48 pb-24 px-6 flex flex-col items-center">
         <div className="max-w-7xl w-full grid grid-cols-1 md:grid-cols-3 items-center gap-12">
           <motion.div
             initial={{ x: -50, opacity: 0 }}
@@ -96,9 +122,11 @@ export default function App() {
               className="w-64 md:w-80 aspect-[3/4] bg-zinc-800 rounded-3xl overflow-hidden border border-[var(--border-color)] transition-all duration-500 cursor-pointer shadow-2xl"
             >
               <img
-                src="images/jack1.jpeg"
+                src="images/jack1.webp"
                 alt="Jackson Kimotho"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                loading="eager"
+                fetchPriority="high"
+                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 bg-zinc-800"
               />
             </motion.div>
             <motion.div
@@ -305,7 +333,9 @@ export default function App() {
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100"
+                loading="lazy"
+                decoding="async"
+                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100 bg-zinc-800/50"
               />
               <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center text-center p-8">
                 <div className="flex gap-2 mb-4">
@@ -387,7 +417,10 @@ export default function App() {
               <div className="aspect-[16/10] rounded-3xl overflow-hidden mb-6 border border-[var(--border-color)] will-change-transform">
                 <img
                   src={blog.image}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                  alt={blog.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 bg-zinc-800/50"
                 />
               </div>
               <div className="flex items-center gap-4 mb-4">
@@ -420,7 +453,7 @@ export default function App() {
               whileHover={{ scale: 1.02 }}
               className="aspect-[3/4] rounded-3xl overflow-hidden border border-[var(--border-color)] shadow-xl"
             >
-              <img src="images/jack2.jpeg" className="w-full h-full object-cover transition-all duration-700" />
+              <img src="images/jack2.webp" alt="Work together" loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-700 bg-zinc-800" />
             </motion.div>
             <motion.div
               animate={{ rotate: [-15, -10, -15] }}
@@ -441,33 +474,58 @@ export default function App() {
               Let's build something impactful together — whether it's your data strategy, your machine learning models, or your next big AI idea.
             </p>
             <div className="glass-card">
-              <form className="space-y-6">
+              <form 
+                className="space-y-6"
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  setFormState('loading');
+                  try {
+                    // Replace 'YOUR_FORM_ID' with your Formspree ID: e.g. https://formspree.io/f/mqazaevj
+                    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(formData)
+                    });
+                    if (res.ok) {
+                      setFormState('success');
+                      setFormData({ name: '', email: '', service: '', message: '' });
+                    } else {
+                      setFormState('error');
+                    }
+                  } catch (err) {
+                    setFormState('error');
+                  }
+                }}
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Name</label>
-                    <input type="text" placeholder="John Smith" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
+                    <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="John Smith" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Email</label>
-                    <input type="email" placeholder="johnsmith@gmail.com" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
+                    <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="johnsmith@gmail.com" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Service Needed ?</label>
-                  <select className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all appearance-none text-foreground">
-                    <option>Select...</option>
-                    <option>Data Analysis</option>
-                    <option>Data Visualization</option>
-                    <option>Machine Learning</option>
-                    <option>MLOPs</option>
-                    <option>AI Solutions</option>
+                  <select value={formData.service} required onChange={e => setFormData({...formData, service: e.target.value})} className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all appearance-none text-foreground">
+                    <option value="">Select...</option>
+                    <option value="Data Analysis">Data Analysis</option>
+                    <option value="Data Visualization">Data Visualization</option>
+                    <option value="Machine Learning">Machine Learning</option>
+                    <option value="MLOPs">MLOPs</option>
+                    <option value="AI Solutions">AI Solutions</option>
                   </select>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">What Can I Help You...</label>
-                  <textarea rows={4} placeholder="Hello, I'd like to enquire about..." className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all resize-none text-foreground" />
+                  <textarea rows={4} required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} placeholder="Hello, I'd like to enquire about..." className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all resize-none text-foreground" />
                 </div>
-                <button className="btn-primary w-full shadow-lg shadow-accent/20">SUBMIT</button>
+                <button disabled={formState === 'loading' || formState === 'success'} className="btn-primary w-full shadow-lg shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                  {formState === 'loading' ? 'SENDING...' : formState === 'success' ? 'SENT SUCCESSFULLY' : 'SUBMIT'}
+                </button>
+                {formState === 'error' && <p className="text-red-400 text-[10px] uppercase font-bold tracking-widest text-center mt-2">Error sending message. Please try again.</p>}
               </form>
             </div>
           </motion.div>
@@ -498,6 +556,18 @@ export default function App() {
           <div>Created by <span className="underline">Jack Data</span></div>
         </div>
       </footer>
+      </main>
+
+      {/* Back to top feature */}
+      {showBackToTop && (
+        <button 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-8 right-8 p-3 rounded-full bg-accent text-black shadow-2xl hover:scale-110 transition-transform z-50 disabled:opacity-50"
+          aria-label="Back to Top"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" /></svg>
+        </button>
+      )}
     </div>
   );
 }

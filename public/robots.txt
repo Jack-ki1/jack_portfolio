@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://Jack-ki1.github.io/jack_portfolio/sitemap.xml
