@@ -27,6 +27,10 @@ export default function App() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', service: '', message: '' });
 
+  // Filter projects by section
+  const githubProjects = PROJECTS.filter(p => p.section === 'github');
+  const huggingfaceProjects = PROJECTS.filter(p => p.section === 'huggingface');
+
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
@@ -304,7 +308,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Projects Section - IMPROVED: Removed popping/layout shift issues */}
+      {/* GitHub Projects Section */}
       <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -313,13 +317,16 @@ export default function App() {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-6xl mb-4 text-gradient">FEATURED PROJECTS</h2>
+          <div className="flex items-center gap-3 mb-4">
+            <Github className="w-8 h-8 text-accent" />
+            <h2 className="text-4xl md:text-6xl text-gradient">GITHUB PROJECTS</h2>
+          </div>
           <p className="text-[var(--semi)] max-w-md text-lg">
-            These selected projects reflect my passion for blending data with strategy — solving real problems through thoughtful analysis and modeling.
+            Open-source repositories showcasing core ML/AI algorithms, data engineering pipelines, and production-ready applications.
           </p>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PROJECTS.map((project, i) => (
+          {githubProjects.map((project, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
@@ -331,7 +338,7 @@ export default function App() {
               className="project-card-container rounded-3xl overflow-hidden group cursor-pointer border border-[var(--border-color)] shadow-lg"
             >
               {/* Fixed background image with stable dimensions */}
-              <div className="aspect-square md:aspect-[4/5] bg-zinc-800/50 relative overflow-hidden">
+              <div className="aspect-square md:aspect-[4/5] bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-900 relative overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -339,7 +346,7 @@ export default function App() {
                   decoding="async"
                   className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-100 group-hover:opacity-60"
                 />
-                {/* Overlay - uses absolute positioning to avoid layout shift */}
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center text-center p-8">
                   <div className="flex gap-2 mb-4">
                     <span className="bg-accent text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
@@ -356,7 +363,7 @@ export default function App() {
                 </div>
               </div>
               
-              {/* Static label always visible - positioned within stable container */}
+              {/* Static label */}
               <div className="bg-[var(--card)] border-t border-[var(--border-color)] p-4">
                 <h3 className="text-sm font-anton text-foreground uppercase tracking-wider">{project.title}</h3>
                 <p className="text-xs text-[var(--muted)] mt-1">{project.category}</p>
@@ -364,18 +371,93 @@ export default function App() {
             </motion.div>
           ))}
         </div>
-        <div className="mt-16 flex flex-col md:flex-row items-center justify-center gap-6">
-          <button className="btn-outline flex items-center gap-2" onClick={() => window.open('https://github.com/Jack-ki1', '_blank')}>
-            <Github className="w-4 h-4" /> GITHUB
-          </button>
-          <button className="btn-outline flex items-center gap-2" onClick={() => window.open('https://huggingface.co/Jack-ki1', '_blank')}>
-            <Plus className="w-4 h-4" /> HUGGINGFACE
-          </button>
+      </section>
+
+      {/* Hugging Face Projects Section */}
+      <section className="py-24 px-6 max-w-7xl mx-auto border-t border-[var(--border-color)]">
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-4">
+            <Star className="w-8 h-8 text-accent" />
+            <h2 className="text-4xl md:text-6xl text-gradient">HUGGING FACE SPACES</h2>
+          </div>
+          <p className="text-[var(--semi)] max-w-md text-lg">
+            Interactive web applications powered by Streamlit and Gradio—live demos of cutting-edge AI and data science solutions.
+          </p>
+        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {huggingfaceProjects.map((project, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              whileHover={{ y: -5 }}
+              onClick={() => project.link && window.open(project.link, '_blank')}
+              className="project-card-container rounded-3xl overflow-hidden group cursor-pointer border border-accent/30 shadow-lg hover:shadow-accent/20 transition-all"
+            >
+              {/* Fixed background image with stable dimensions */}
+              <div className="aspect-square md:aspect-[4/5] bg-gradient-to-br from-purple-900/30 via-blue-900/30 to-indigo-900/30 relative overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-100 group-hover:opacity-60"
+                />
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center text-center p-8">
+                  <div className="flex gap-2 mb-4">
+                    <span className="bg-accent text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl mb-4 max-w-xs text-white font-anton uppercase tracking-tighter leading-none">{project.title}</h3>
+                  <p className="text-white/70 text-xs md:text-sm line-clamp-3 mb-6">
+                    {project.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-accent font-bold text-[10px] uppercase tracking-widest border border-accent/30 px-4 py-1 rounded-full hover:bg-accent hover:text-black transition-colors">
+                    Try Live <ArrowRight className="w-3 h-3" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Static label with accent border */}
+              <div className="bg-[var(--card)] border-t-2 border-accent/50 p-4">
+                <h3 className="text-sm font-anton text-foreground uppercase tracking-wider">{project.title}</h3>
+                <p className="text-xs text-[var(--muted)] mt-1">{project.category}</p>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
+      {/* Project Links Section */}
+      <section className="py-16 px-6 max-w-7xl mx-auto">
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row items-center justify-center gap-6"
+        >
+          <button className="btn-outline flex items-center gap-2 group" onClick={() => window.open('https://github.com/Jack-ki1', '_blank')}>
+            <Github className="w-4 h-4 group-hover:scale-110 transition-transform" /> VIEW ALL ON GITHUB
+          </button>
+          <button className="btn-outline flex items-center gap-2 group" onClick={() => window.open('https://huggingface.co/spaces/Jack-ki1', '_blank')}>
+            <Star className="w-4 h-4 group-hover:scale-110 transition-transform" /> EXPLORE HUGGING FACE
+          </button>
+        </motion.div>
+      </section>
+
       {/* FAQ Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section className="py-24 px-6 max-w-7xl mx-auto border-t border-[var(--border-color)]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24">
           <motion.div
             initial={{ x: -30, opacity: 0 }}
@@ -403,7 +485,7 @@ export default function App() {
       </section>
 
       {/* Blog Section */}
-      <section id="blogs" className="py-24 px-6 max-w-7xl mx-auto">
+      <section id="blogs" className="py-24 px-6 max-w-7xl mx-auto border-t border-[var(--border-color)]">
         <div className="mb-16">
           <h2 className="text-4xl md:text-6xl mb-4 uppercase">events & insights</h2>
           <p className="text-[var(--muted)] max-w-md">
@@ -444,7 +526,7 @@ export default function App() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto">
+      <section className="py-24 px-6 max-w-7xl mx-auto border-t border-[var(--border-color)]">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-24 items-center">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
@@ -484,7 +566,6 @@ export default function App() {
                   e.preventDefault();
                   setFormState('loading');
                   try {
-                    // Replace 'YOUR_FORM_ID' with your Formspree ID: e.g. https://formspree.io/f/mqazaevj
                     const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
                       method: 'POST',
                       headers: { 'Content-Type': 'application/json' },
@@ -537,7 +618,7 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-accent text-black py-12 px-6">
+      <footer className="bg-accent text-black py-12 px-6 border-t border-accent/20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             <div className="text-[10px] uppercase font-bold tracking-widest opacity-60 mb-2">Email :</div>
