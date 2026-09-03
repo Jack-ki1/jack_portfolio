@@ -210,7 +210,7 @@ export default function App() {
           >
             <h2 className="text-4xl md:text-6xl mb-8 text-gradient">ABOUT ME</h2>
             <p className="text-xl text-[var(--semi)] leading-relaxed mb-12">
-              Hi, I'm Jackson a Data Analyst, Data Scientist, and Data Engineer with a passion for turning raw data into actionable insights. I specialize in Python, SQL, and Machine Learning to build robust data-driven solutions.
+              Hi, I'm Jackson a Data Analyst, Data Scientist, and Data Engineer with a passion for turning raw data into actionable insights. I specialize in Python, SQL, and Machine Learning to build intelligent solutions that drive business value.
             </p>
             <div className="grid grid-cols-3 gap-8 mb-12">
               <motion.div whileHover={{ y: -5 }}>
@@ -237,10 +237,10 @@ export default function App() {
               </div>
             </div>
             <div className="flex gap-4 mb-12">
-              <a href="https://www.linkedin.com/in/jackson-kimotho1/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center hover:bg-accent hover:text-black hover:border-accent transition-all duration-300">
+              <a href="https://www.linkedin.com/in/jackson-kimotho1/" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center hover:border-accent hover:text-accent transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a href="https://github.com/Jack-ki1" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center hover:bg-accent hover:text-black hover:border-accent transition-all duration-300">
+              <a href="https://github.com/Jack-ki1" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-[var(--border-color)] flex items-center justify-center hover:border-accent hover:text-accent transition-colors">
                 <Github className="w-5 h-5" />
               </a>
             </div>
@@ -304,7 +304,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section - IMPROVED: Removed popping/layout shift issues */}
       <section id="projects" className="py-24 px-6 max-w-7xl mx-auto">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -328,34 +328,38 @@ export default function App() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               whileHover={{ y: -5 }}
               onClick={() => project.link && window.open(project.link, '_blank')}
-              className="relative aspect-square md:aspect-[4/5] rounded-3xl overflow-hidden group cursor-pointer border border-[var(--border-color)] shadow-lg will-change-transform"
+              className="project-card-container rounded-3xl overflow-hidden group cursor-pointer border border-[var(--border-color)] shadow-lg"
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-80 group-hover:opacity-100 bg-zinc-800/50"
-              />
-              <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col items-center justify-center text-center p-8">
-                <div className="flex gap-2 mb-4">
-                  <span className="bg-accent text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                    {project.category}
-                  </span>
-                </div>
-                <h3 className="text-2xl md:text-3xl mb-4 max-w-xs text-white font-anton uppercase tracking-tighter leading-none">{project.title}</h3>
-                <p className="text-white/70 text-xs md:text-sm line-clamp-3 mb-6">
-                  {project.description}
-                </p>
-                <div className="flex items-center gap-2 text-accent font-bold text-[10px] uppercase tracking-widest border border-accent/30 px-4 py-1 rounded-full hover:bg-accent hover:text-black transition-all">
-                  View Project <ArrowRight className="w-3 h-3" />
+              {/* Fixed background image with stable dimensions */}
+              <div className="aspect-square md:aspect-[4/5] bg-zinc-800/50 relative overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-100 group-hover:opacity-60"
+                />
+                {/* Overlay - uses absolute positioning to avoid layout shift */}
+                <div className="absolute inset-0 bg-black/80 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col items-center justify-center text-center p-8">
+                  <div className="flex gap-2 mb-4">
+                    <span className="bg-accent text-black px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
+                      {project.category}
+                    </span>
+                  </div>
+                  <h3 className="text-2xl md:text-3xl mb-4 max-w-xs text-white font-anton uppercase tracking-tighter leading-none">{project.title}</h3>
+                  <p className="text-white/70 text-xs md:text-sm line-clamp-3 mb-6">
+                    {project.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-accent font-bold text-[10px] uppercase tracking-widest border border-accent/30 px-4 py-1 rounded-full hover:bg-accent hover:text-black transition-colors">
+                    View Project <ArrowRight className="w-3 h-3" />
+                  </div>
                 </div>
               </div>
-              {/* Static Label for mobile/non-hover */}
-              <div className="absolute bottom-6 left-6 group-hover:opacity-0 transition-all duration-300">
-                <div className="bg-black/80 border border-white/10 px-4 py-2 rounded-2xl">
-                  <h3 className="text-sm font-anton text-white uppercase tracking-wider">{project.title}</h3>
-                </div>
+              
+              {/* Static label always visible - positioned within stable container */}
+              <div className="bg-[var(--card)] border-t border-[var(--border-color)] p-4">
+                <h3 className="text-sm font-anton text-foreground uppercase tracking-wider">{project.title}</h3>
+                <p className="text-xs text-[var(--muted)] mt-1">{project.category}</p>
               </div>
             </motion.div>
           ))}
@@ -414,7 +418,7 @@ export default function App() {
               onClick={() => blog.link && window.open(blog.link, '_blank')}
               className="group cursor-pointer"
             >
-              <div className="aspect-[16/10] rounded-3xl overflow-hidden mb-6 border border-[var(--border-color)] will-change-transform">
+              <div className="aspect-[16/10] rounded-3xl overflow-hidden mb-6 border border-[var(--border-color)]">
                 <img
                   src={blog.image}
                   alt={blog.title}
@@ -500,16 +504,16 @@ export default function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Name</label>
-                    <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="John Smith" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
+                    <input type="text" required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} placeholder="John Smith" className="w-full bg-black/40 border border-[var(--border-color)] rounded-2xl px-4 py-3 text-foreground placeholder-[var(--muted)] focus:outline-none focus:border-accent transition-colors" />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Email</label>
-                    <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="johnsmith@gmail.com" className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all text-foreground" />
+                    <input type="email" required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} placeholder="johnsmith@gmail.com" className="w-full bg-black/40 border border-[var(--border-color)] rounded-2xl px-4 py-3 text-foreground placeholder-[var(--muted)] focus:outline-none focus:border-accent transition-colors" />
                   </div>
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">Service Needed ?</label>
-                  <select value={formData.service} required onChange={e => setFormData({...formData, service: e.target.value})} className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all appearance-none text-foreground">
+                  <select value={formData.service} required onChange={e => setFormData({...formData, service: e.target.value})} className="w-full bg-black/40 border border-[var(--border-color)] rounded-2xl px-4 py-3 text-foreground focus:outline-none focus:border-accent transition-colors">
                     <option value="">Select...</option>
                     <option value="Data Analysis">Data Analysis</option>
                     <option value="Data Visualization">Data Visualization</option>
@@ -520,7 +524,7 @@ export default function App() {
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] uppercase font-bold tracking-widest text-accent/60">What Can I Help You...</label>
-                  <textarea rows={4} required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} placeholder="Hello, I'd like to enquire about..." className="w-full bg-black/40 border border-[var(--border-color)] rounded-xl px-4 py-3 focus:border-accent outline-none transition-all resize-none text-foreground" />
+                  <textarea rows={4} required value={formData.message} onChange={e => setFormData({...formData, message: e.target.value})} placeholder="Hello, I'd like to enquire about..." className="w-full bg-black/40 border border-[var(--border-color)] rounded-2xl px-4 py-3 text-foreground placeholder-[var(--muted)] focus:outline-none focus:border-accent transition-colors resize-none" />
                 </div>
                 <button disabled={formState === 'loading' || formState === 'success'} className="btn-primary w-full shadow-lg shadow-accent/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
                   {formState === 'loading' ? 'SENDING...' : formState === 'success' ? 'SENT SUCCESSFULLY' : 'SUBMIT'}
