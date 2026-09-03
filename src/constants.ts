@@ -6,44 +6,114 @@ export const SERVICES = [
 ];
 
 export const PROJECTS = [
+  // GitHub Projects
   {
-    title: 'PYTHON DATA ANALYSIS: BEGINNER TO PRO',
-    category: 'Python / Pandas',
-    description: 'A comprehensive repository covering the end-to-end data analysis workflow using Python, from data cleaning to advanced statistical analysis.',
-    image: 'images/data_analysis1.webp',
-    link: 'https://github.com/Jack-ki1/PYTHON-DATA-ANALYSIS-BEGINEER-TO-PRO'
+    title: 'AI QUOTATION GENERATOR',
+    category: 'AI / Python',
+    description: 'Intelligent system for generating automated, context-aware business quotations using advanced NLP and AI models.',
+    image: 'images/ai_quotation.webp',
+    link: 'https://github.com/Jack-ki1/AI_quotation_generator',
+    section: 'github'
   },
   {
-    title: 'PYTHON STREAMLIT CONVERTOR',
-    category: 'Python / Streamlit',
-    description: 'A powerful, production-ready tool that converts Python scripts and Jupyter Notebooks into fully functional Streamlit applications. Handles large files, preserves comments and markdown, and provides multiple conversion strategies.',
-    image: 'images/sentiment1.webp',
-    link: 'https://huggingface.co/spaces/Jack-ki1/python_to_streamlit_convertor'
+    title: 'AI CUSTOMER INBOX AGENT',
+    category: 'AI / Automation',
+    description: 'Smart email management system powered by AI to automatically sort, categorize, and respond to customer inquiries.',
+    image: 'images/inbox_agent.webp',
+    link: 'https://github.com/Jack-ki1/AI-Customer-Inbox-Agent',
+    section: 'github'
   },
   {
-    title: 'PYTHON MACHINE LEARNING',
+    title: 'DASH FORGE',
+    category: 'Dashboard / Visualization',
+    description: 'Powerful dashboard builder for creating interactive, real-time data visualization applications with minimal code.',
+    image: 'images/dash_forge.webp',
+    link: 'https://github.com/Jack-ki1/DASH_FORGE',
+    section: 'github'
+  },
+  {
+    title: 'CREDIT WORTHINESS ASSESSMENT',
     category: 'Machine Learning',
-    description: 'Implementation of various machine learning algorithms including regression, classification, and clustering using Scikit-Learn and TensorFlow.',
-    image: 'images/ml_1.webp',
-    link: 'https://github.com/Jack-ki1/PYTHON_MACHINE_LEARNING'
+    description: 'ML-powered credit risk assessment tool that predicts customer creditworthiness using advanced statistical models.',
+    image: 'images/credit_assessment.webp',
+    link: 'https://github.com/Jack-ki1/CREDIT_WORTHINESS_ASSESSMENT_TOOL',
+    section: 'github'
+  },
+  {
+    title: 'KCA UNIVERSITY CHATBOT',
+    category: 'AI / NLP',
+    description: 'Intelligent conversational AI for KCA University providing instant student support, course info, and general assistance.',
+    image: 'images/kca_chatbot.webp',
+    link: 'https://github.com/Jack-ki1/KCA_University_CHATBOT',
+    section: 'github'
+  },
+  {
+    title: 'MACHINE LEARNING ENGINE',
+    category: 'ML / Core',
+    description: 'Comprehensive ML framework featuring classification, regression, clustering, and deep learning capabilities.',
+    image: 'images/ml_engine.webp',
+    link: 'https://github.com/Jack-ki1/MACHINE_LEARNING_ENGINE',
+    section: 'github'
+  },
+  {
+    title: 'DATA ANALYSIS ENGINE',
+    category: 'Data Science',
+    description: 'End-to-end data analysis platform with statistical testing, exploratory analysis, and automated insights generation.',
+    image: 'images/data_engine.webp',
+    link: 'https://github.com/Jack-ki1/DATA_ANALYSIS_ENGINE',
+    section: 'github'
+  },
+  {
+    title: 'TURKEY DATA ANALYSIS DASHBOARD',
+    category: 'Analytics / BI',
+    description: 'Interactive dashboard analyzing Turkish economic and demographic data with advanced filtering and drill-down capabilities.',
+    image: 'images/turkey_dashboard.webp',
+    link: 'https://github.com/Jack-ki1/Turkey-Data-Analysis-Dashboard',
+    section: 'github'
+  },
+
+  // Hugging Face Projects
+  {
+    title: 'FORMULA 1 PREDICTOR 2026',
+    category: 'AI / Sports Analytics',
+    description: 'Cutting-edge ML model predicting F1 2026 race outcomes using historical data, driver performance metrics, and track conditions.',
+    image: 'images/f1_predictor.webp',
+    link: 'https://huggingface.co/spaces/Jack-ki1/FORMULA_1_PREDICTOR_2026',
+    section: 'huggingface'
+  },
+  {
+    title: 'AI & ML MODEL VISUALIZER',
+    category: 'ML / EDA',
+    description: 'Instantly explore, profile, and visualize datasets with auto-generated insights, correlations, and data quality reports.',
+    image: 'images/ml_visualizer.webp',
+    link: 'https://huggingface.co/spaces/Jack-ki1/AI_AND_ML_MODEL_VISUALIZER',
+    section: 'huggingface'
+  },
+  {
+    title: 'FACE ATTENDANCE SYSTEM',
+    category: 'Computer Vision',
+    description: 'Real-time facial recognition attendance system with instant verification, reporting, and integration capabilities.',
+    image: 'images/face_attendance.webp',
+    link: 'https://huggingface.co/spaces/Jack-ki1/Face_Attendance_System',
+    section: 'huggingface'
+  },
+  {
+    title: 'FINESE SCHOOL',
+    category: 'EdTech / AI',
+    description: 'Comprehensive offline learning platform teaching Python, AI, SQL, and data science with AI-powered personalized guidance.',
+    image: 'images/finese_school.webp',
+    link: 'https://huggingface.co/spaces/Jack-ki1/FINESE_SCHOOL',
+    section: 'huggingface'
   },
   {
     title: 'FINESE DATA',
-    category: 'Data Analysis / Visualization / Modelling',
-    description: 'A comprehensive, modular data analysis platform with AI-powered insights, automated cleaning, modeling, and export capabilities.',
-    image: 'images/desktop1.webp',
-    link: 'https://huggingface.co/spaces/Jack-ki1/finese_data_1'
-  },
-  {
-    title: 'GLOBAL SUPERSTORE ANALYSIS',
-    category: 'Data Analysis / Visualization',
-    description: 'An in-depth analysis of the Global Superstore dataset, identifying key sales drivers and optimizing supply chain efficiency through data insights.',
-    image: 'images/global_superstore.webp',
-    link: 'https://github.com/Jack-ki1/GLOBALSUPERSTORE_PROJECT'
+    category: 'Data Analytics',
+    description: 'All-in-one data platform: explore, clean, visualize, model tabular data—all with AI-powered automation and insights.',
+    image: 'images/finese_data.webp',
+    link: 'https://huggingface.co/spaces/Jack-ki1/finese_data_1',
+    section: 'huggingface'
   }
 ];
-
-
 
 export const FAQS = [
   { q: 'WHAT TOOLS DO YOU USE FOR DATA ANALYSIS?', a: 'I primarily use Python (Pandas, NumPy, Scikit-Learn), SQL, Power BI, and Excel for comprehensive data analysis and visualization.' },
@@ -56,20 +126,20 @@ export const FAQS = [
 
 export const BLOGS = [
   {
-    title: 'Konza Technopolis: Kenya’s Silicon Savannah',
+    title: 'Konza Technopolis: Kenya\'s Silicon Savannah',
     category: 'TECH/GROWTH',
     date: 'JAN 2026',
-    description: 'I participated in the inaugural MSMEs–Innovator Connect Forum,  hosted by Konza Technopolis in partnership with key stakeholders.',
+    description: 'I participated in the inaugural MSMEs–Innovator Connect Forum, hosted by Konza Technopolis in partnership with key stakeholders.',
     image: 'images/event1.webp',
-    link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-konzatechnopolis-kenyaprivatesectoralliance-ugcPost-7424230067938996224-Etdt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqmkB8qDwkjn_3QZo7I-1HQ6djT_HS8o'
+    link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-konzatechnopolis-kenyaprivatesectoralliance-ugcPost-7424230067938996224-Etdt?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqm'
   },
   {
     title: 'GOOGLE NOTEBOOKLM ML DEEP DIVE',
     category: 'ML/GROWTH',
     date: 'FEB 2026',
-    description: 'A detailed review on how one can leverage Notebooklm in their machine  learning.',
+    description: 'A detailed review on how one can leverage Notebooklm in their machine learning workflow.',
     image: 'images/ml2.webp',
-    link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-machinelearning-deeplearning-ugcPost-7429802358643138560-PEMs?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqmkB8qDwkjn_3QZo7I-1HQ6djT_HS8o'
+    link: 'https://www.linkedin.com/posts/jackson-kimotho1_ai-machinelearning-deeplearning-ugcPost-7429802358643138560-PEMs?utm_source=share&utm_medium=member_desktop&rcm=ACoAAE5iqmkB8qDwkjn_3QZo7'
   }
 ];
 
