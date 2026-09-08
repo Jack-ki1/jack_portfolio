@@ -30,6 +30,7 @@ export default function App() {
   // Filter projects by section
   const githubProjects = PROJECTS.filter(p => p.section === 'github');
   const huggingfaceProjects = PROJECTS.filter(p => p.section === 'huggingface');
+  const documentUrl = (fileName: string) => new URL(`${fileName}?v=20260908`, document.baseURI).toString();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -249,10 +250,10 @@ export default function App() {
               </a>
             </div>
             <div className="flex gap-4">
-              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('Jackson_Kimotho_CV.pdf', '_blank')}>
+              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open(documentUrl('JACK_CV_V1.pdf'), '_blank')}>
                 <span className="relative z-10">MY CV</span>
               </button>
-              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open('Jackson_Kimotho_Resume.pdf', '_blank')}>
+              <button className="btn-outline group relative overflow-hidden" onClick={() => window.open(documentUrl('JK_RESUME_V2.pdf'), '_blank')}>
                 <span className="relative z-10">RESUME</span>
               </button>
             </div>
@@ -566,10 +567,15 @@ export default function App() {
                   e.preventDefault();
                   setFormState('loading');
                   try {
-                    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+                    const res = await fetch('https://formsubmit.co/ajax/kimothojackson1125@gmail.com', {
                       method: 'POST',
-                      headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify(formData)
+                      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                      body: JSON.stringify({
+                        ...formData,
+                        _subject: `Portfolio enquiry from ${formData.name}`,
+                        _replyto: formData.email,
+                        _captcha: 'false'
+                      })
                     });
                     if (res.ok) {
                       setFormState('success');
